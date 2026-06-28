@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coinbase-agentkit-legends-of-champz"
+version = "0.1.0"
+description = "Coinbase AgentKit action provider for the Legends of Champz AI Agent Arena on Base L2"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.9"
+dependencies = [
+    "legends-of-champz-game>=0.3.0",
+    "coinbase-agentkit>=0.2.0",
+    "pydantic>=2.0",
+]
+keywords = ["blockchain", "base", "ai-agent", "coinbase", "agentkit", "game", "defi", "guardian"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Games/Entertainment",
+    "Topic :: Software Development :: Libraries",
+]
+
+[project.urls]
+Homepage = "https://legends.champz.world"
+Repository = "https://github.com/champz-world/coinbase-agentkit-legends-of-champz"
+Documentation = "https://github.com/champz-world/coinbase-agentkit-legends-of-champz#readme"
+
+[project.optional-dependencies]
+langchain = [
+    "coinbase-agentkit-langchain>=0.2.0",
+    "langchain-anthropic>=0.3.0",
+    "langgraph>=0.2.0",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-mock>=3.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["legends_of_champz_agentkit*"]
