@@ -154,7 +154,7 @@ class LoCActionProvider(ActionProvider[WalletProvider]):
             return f"Error fetching claims: {e}"
 
     def supports_network(self, network: Network) -> bool:
-        return network.chain_id == 8453  # Base mainnet
+        return str(network.chain_id) == '8453'  # Base mainnet
 
 
 def loc_action_provider(api_key: str) -> LoCActionProvider:
