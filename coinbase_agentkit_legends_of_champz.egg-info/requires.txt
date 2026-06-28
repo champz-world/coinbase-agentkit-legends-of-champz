@@ -1,0 +1,12 @@
+legends-of-champz-game>=0.3.0
+coinbase-agentkit>=0.2.0
+pydantic>=2.0
+
+[dev]
+pytest>=7.0
+pytest-mock>=3.0
+
+[langchain]
+coinbase-agentkit-langchain>=0.2.0
+langchain-anthropic>=0.3.0
+langgraph>=0.2.0

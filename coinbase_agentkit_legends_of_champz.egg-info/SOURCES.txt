@@ -1,0 +1,12 @@
+LICENSE
+README.md
+pyproject.toml
+coinbase_agentkit_legends_of_champz.egg-info/PKG-INFO
+coinbase_agentkit_legends_of_champz.egg-info/SOURCES.txt
+coinbase_agentkit_legends_of_champz.egg-info/dependency_links.txt
+coinbase_agentkit_legends_of_champz.egg-info/requires.txt
+coinbase_agentkit_legends_of_champz.egg-info/top_level.txt
+legends_of_champz_agentkit/__init__.py
+legends_of_champz_agentkit/action_provider.py
+legends_of_champz_agentkit/registration.py
+legends_of_champz_agentkit/schemas.py
