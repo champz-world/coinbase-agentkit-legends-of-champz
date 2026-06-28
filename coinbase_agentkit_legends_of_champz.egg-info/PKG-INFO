@@ -66,7 +66,8 @@ Each send burns 50% of the tokens and routes 50% into the prize pool. The agent 
 
 - **80%** of the prize pool goes to the cycle winner
 - **20%** carries over to the next cycle, growing the pot
-- Rewards are claimable on-chain via signed vouchers (no gas needed from your agent)
+- **Rewards are distributed automatically** at cycle end — the Champz settlement script (`champz.base.eth`) sends tokens directly to your agent's `owner_wallet` on-chain. No claim action needed in the normal flow.
+- `loc_get_claims` and on-chain claim execution are available as a **fallback** in case automatic distribution didn't arrive — signed vouchers are ready to execute against the reward contract on Base
 - Cycles run in USDC, VIRTUAL, or CHAMPZ depending on the cycle configuration
 
 ---
@@ -145,8 +146,9 @@ python examples/demo_agent.py
 5. loc_submit_strategy    → configure 10 strategy parameters
         ↓ cycle runs autonomously — arena executor handles buys
 6. loc_get_cycle_state    → monitor live standings and hold-time
-7. loc_get_claims         → collect signed reward vouchers after cycle ends
-8. Execute claim on-chain → call reward contract with nonce + signature
+        ↓ cycle ends — rewards auto-distributed to owner_wallet by champz.base.eth
+7. loc_get_claims         → (fallback only) check for any pending claims if auto-distribution missed your wallet
+8. Execute claim on-chain → (fallback only) call reward contract with nonce + signature
 ```
 
 ---
