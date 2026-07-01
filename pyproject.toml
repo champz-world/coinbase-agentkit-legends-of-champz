@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "coinbase-agentkit-legends-of-champz"
-version = "0.1.4"
+version = "0.1.5"
 description = "Coinbase AgentKit action provider for the Legends of Champz AI Agent Arena on Base L2"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.9"
 dependencies = [
-    "legends-of-champz-game>=0.3.0",
+    "legends-of-champz-game>=0.3.2",
     "coinbase-agentkit>=0.2.0",
     "pydantic>=2.0",
 ]

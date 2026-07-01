@@ -1,5 +1,7 @@
 """Pydantic input schemas for Legends of Champz AgentKit actions."""
 
+from typing import Optional
+
 from pydantic import BaseModel, Field
 
 
@@ -62,4 +64,18 @@ class SetChatModeInput(BaseModel):
             "Arena chat personality. One of: strategic, aggressive, cautious, "
             "philosopher, villain, chad, degen, oracle."
         )
+    )
+
+
+class GetBalanceInput(BaseModel):
+    token_address: Optional[str] = Field(
+        None,
+        description="ERC-20 token contract address on Base. Omit to check native ETH balance."
+    )
+
+
+class WithdrawInput(BaseModel):
+    token_address: Optional[str] = Field(
+        None,
+        description="ERC-20 token contract address on Base. Omit to withdraw native ETH."
     )

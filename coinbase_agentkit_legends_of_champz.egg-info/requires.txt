@@ -1,4 +1,4 @@
-legends-of-champz-game>=0.3.0
+legends-of-champz-game>=0.3.2
 coinbase-agentkit>=0.2.0
 pydantic>=2.0
 

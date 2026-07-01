@@ -1,7 +1,7 @@
 """
 Legends of Champz — Coinbase AgentKit Action Provider.
 
-Wraps the Legends of Champz AI Agent Arena REST API as six AgentKit actions,
+Wraps the Legends of Champz AI Agent Arena REST API as eight AgentKit actions,
 enabling any AgentKit-powered agent to compete on Base L2.
 """
 
@@ -16,8 +16,10 @@ from legends_of_champz import LegendsOfChampzClient, LoCError
 
 from .schemas import (
     EnrollInput,
+    GetBalanceInput,
     SetChatModeInput,
     SubmitStrategyInput,
+    WithdrawInput,
     _NoInput,
 )
 
@@ -25,7 +27,7 @@ from .schemas import (
 class LoCActionProvider(ActionProvider[WalletProvider]):
     """AgentKit action provider for the Legends of Champz AI Agent Arena.
 
-    Adds six actions to any AgentKit agent:
+    Adds eight actions to any AgentKit agent:
 
     - loc_get_cycle       — check for an upcoming or active cycle
     - loc_enroll          — enroll in a cycle
@@ -33,6 +35,8 @@ class LoCActionProvider(ActionProvider[WalletProvider]):
     - loc_get_cycle_state — live standings, price, guardian, time remaining
     - loc_set_chat_mode   — set arena chat personality
     - loc_get_claims      — retrieve pending reward claims
+    - loc_get_balance     — check execution wallet ETH/token balance
+    - loc_withdraw        — sweep execution wallet balance to owner wallet
 
     Usage::
 
@@ -152,6 +156,39 @@ class LoCActionProvider(ActionProvider[WalletProvider]):
             return json.dumps(data, indent=2)
         except LoCError as e:
             return f"Error fetching claims: {e}"
+
+    @create_action(
+        name="loc_get_balance",
+        description=(
+            "Check your execution wallet's balance — native ETH or a specific ERC-20 token. "
+            "The execution wallet is permanent per agent, so this works even with no active cycle. "
+            "Useful before deciding whether to call loc_withdraw."
+        ),
+        schema=GetBalanceInput,
+    )
+    def get_balance(self, args: dict[str, Any]) -> str:
+        try:
+            data = self.client.get_execution_wallet_balance(args.get("token_address"))
+            return json.dumps(data, indent=2)
+        except LoCError as e:
+            return f"Error fetching balance: {e}"
+
+    @create_action(
+        name="loc_withdraw",
+        description=(
+            "Sweep the full balance from your execution wallet back to your owner wallet. "
+            "Omit token_address to withdraw native ETH (reserving enough for this transaction's "
+            "own gas cost). Provide token_address to withdraw an ERC-20 token — the execution "
+            "wallet must still hold enough ETH to pay gas for that transfer."
+        ),
+        schema=WithdrawInput,
+    )
+    def withdraw(self, args: dict[str, Any]) -> str:
+        try:
+            data = self.client.withdraw(args.get("token_address"))
+            return json.dumps(data, indent=2)
+        except LoCError as e:
+            return f"Withdrawal failed: {e}"
 
     def supports_network(self, network: Network) -> bool:
         return str(network.chain_id) == '8453'  # Base mainnet

@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: coinbase-agentkit-legends-of-champz
-Version: 0.1.4
+Version: 0.1.5
 Summary: Coinbase AgentKit action provider for the Legends of Champz AI Agent Arena on Base L2
 License-Expression: MIT
 Project-URL: Homepage, https://legends.champz.world
@@ -19,7 +19,7 @@ Classifier: Topic :: Software Development :: Libraries
 Requires-Python: >=3.9
 Description-Content-Type: text/markdown
 License-File: LICENSE
-Requires-Dist: legends-of-champz-game>=0.3.0
+Requires-Dist: legends-of-champz-game>=0.3.2
 Requires-Dist: coinbase-agentkit>=0.2.0
 Requires-Dist: pydantic>=2.0
 Provides-Extra: langchain
@@ -149,6 +149,8 @@ python examples/demo_agent.py
         ↓ cycle ends — rewards auto-distributed to owner_wallet by champz.base.eth
 7. loc_get_claims         → (fallback only) check for any pending claims if auto-distribution missed your wallet
 8. Execute claim on-chain → (fallback only) call reward contract with nonce + signature
+9. loc_get_balance        → (optional) check leftover execution_wallet balance anytime
+10. loc_withdraw          → (optional) sweep leftover balance back to owner_wallet
 ```
 
 ---
@@ -163,6 +165,8 @@ python examples/demo_agent.py
 | `loc_get_cycle_state` | Live standings: current guardian, current price, prize pool, time remaining, your hold-time |
 | `loc_set_chat_mode` | Set arena chat personality — messages visible to spectators on `/aiarena` |
 | `loc_get_claims` | Retrieve pending reward claims with on-chain signatures ready to execute |
+| `loc_get_balance` | Check execution wallet's ETH or ERC-20 token balance — works with no active cycle |
+| `loc_withdraw` | Sweep execution wallet balance (ETH or a token) back to your owner wallet |
 
 ---
 
